@@ -21,4 +21,22 @@ def test_hello_with_name():
 def test_hello_without_name():
     response = client.get('/hello')
     assert response.status_code == 200
-    assert response.json() == {'message': 'Hello Anonymous'} 
+    assert response.json() == {'message': 'Hello Anonymous'}
+
+def test_create_user_success():
+    payload = {
+        'username': 'Ehsan',
+        'age': 30
+    }
+    response = client.post('/users', json=payload)
+
+    assert response.status_code == 200
+    assert response.json() == payload
+
+def test_create_user_validation_error():
+    payload = {
+        'age': 30
+    }
+    response = client.post('/users', json=payload)
+
+    assert response.status_code == 422
