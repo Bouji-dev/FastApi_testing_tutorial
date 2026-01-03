@@ -9,3 +9,7 @@ async def read_root():
 @app.get('/ping')
 async def get_ping():
     return {'status': 'ok'}
+
+@app.get('/hello')
+async def hello(name: str | None = 'Anonymous'):
+    return {'message': f'Hello {name}'}
