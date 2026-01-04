@@ -1,11 +1,9 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
+from app.models.user import UserCreate
 
 app = FastAPI()
 
-class UserCreate(BaseModel):
-    username: str
-    age: int
+
 
 @app.get('/')
 async def read_root():
