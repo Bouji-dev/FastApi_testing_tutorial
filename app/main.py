@@ -1,8 +1,10 @@
 from fastapi import FastAPI
 from app.models.user import UserCreate
+from app.api.routes import router
+
 
 app = FastAPI()
-
+app.include_router(router)
 
 
 @app.get('/')

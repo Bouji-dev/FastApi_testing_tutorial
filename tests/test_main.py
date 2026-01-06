@@ -40,3 +40,25 @@ def test_create_user_validation_error():
     response = client.post('/users', json=payload)
 
     assert response.status_code == 422
+
+def test_check_age_allowed():
+    response = client.post('/check-age', json={'age': 20})
+
+    assert response.status_code == 200
+    assert response.json() == {'status': 'allowed'}
+
+def test_check_age_not_allowed():
+    response = client.post("/check-age", json={"age": 15})
+    assert response.status_code == 200
+    assert response.json() == {"status": "not_allowed"}
+
+def test_check_age_negative_value():
+    response = client.post('check-age', json={'age': -5})    
+
+    assert response.status_code == 400
+    assert response.json()['detail'] == 'age must be non-negative'
+
+def test_check_age_invalid_type():
+    response = client.post('/check-age', json={'age': 'abc'})
+
+    assert response.status_code == 422

@@ -9,9 +9,11 @@ class UserService:
     def create_user(self, user: UserCreate):
         return self.repository.create(user)
         
+class InvalidAgeError(Exception):
+    pass
+
 
 def check_user_age(age: int) -> str:
-    if age < 18:
-        return 'not_allowed'
-    return 'allowed'
-
+    if age < 0:
+        raise InvalidAgeError('age must be non-negative')
+    return 'allowed' if age >= 18 else 'not_allowed'
