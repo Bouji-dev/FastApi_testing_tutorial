@@ -8,13 +8,6 @@ router = APIRouter()
 class AgeRequest(BaseModel):
     age: int
 
-
-# @router.post("/check-age")
-# def check_age(data: AgeRequest):
-#     result = check_user_age(data.age)
-#     return {"status": result}
-
-
 @router.post('/check-age')
 def check_age(data: AgeRequest):
     try:
